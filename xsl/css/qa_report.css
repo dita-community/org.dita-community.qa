@@ -1,0 +1,96 @@
+table.dash
+{
+	margin:auto;
+	text-align:center;
+}
+
+p.dash
+{
+	position:absolute;
+	top:440px;
+	z-index: +1;
+	margin-left:150px;
+}
+
+span.metric
+{
+	font-family: sans-serif;
+	font-size: 15pt;
+	margin:auto;
+}
+
+span.value
+{
+	font-family: sans-serif;
+	font-size: 30pt;
+	color:#428BCA;
+	margin:auto;
+}
+
+
+#violationPie
+{
+	width: 500px; 
+	height: 350px;
+	z-index: 1;
+	overflow:hidden;
+}
+
+#interactionPie
+{
+	width: 500px; 
+	height: 350px;
+	z-index: 1;
+	overflow:hidden;
+}
+
+#interactionLine
+{
+	width: 500px; 
+	height: 400px;
+}
+
+
+#wordsLine
+{
+	width: 500px; 
+	height: 400px;
+}
+
+#freqLine
+{
+	width: 500px; 
+	height: 400px;
+	overflow:hidden;
+}
+
+#passivometer
+{
+	width: 500px; 
+	height: 300px;
+	padding-left:50px;
+	overflow:hidden;
+}
+
+#timingPie
+{
+	width: 500px; 
+	height: 350px;
+	z-index: 1;
+	overflow:hidden;
+}
+
+.info
+{
+	
+}
+
+.infocontent
+{
+	
+}
+
+a.violation_link:link
+{
+text-transform:uppercase;
+}

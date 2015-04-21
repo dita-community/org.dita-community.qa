@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is part of the org.dita-community.qa project hosted on 
+     Sourceforge.net.-->
+<!-- (c) Copyright Ditanauts All Rights Reserved. -->
+<project name="dita2qa" default="dita2qa">
+	<property name="transtype" value="qa"/>
+
+	<condition property="if.chunk">
+  		<equals arg1="${setchunk}" arg2="true" casesensitive="false" />
+	</condition>
+
+	<target name="setchunk" description="Set @chunk to-content on the temp input bookmap" if="if.chunk">
+		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="chunk=.to-content." value="" />	
+		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="&lt;bookmap " value="&lt;bookmap chunk='to-content' "/>
+		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="&lt;map " value="&lt;map chunk='to-content' "/>
+	</target>
+
+	<target name="dita2qa" depends="build-init,preprocess">
+	<copy todir="${output.dir}">
+			<fileset dir="${dita.dir}${file.separator}plugins${file.separator}org.dita-community.qa${file.separator}xsl${file.separator}">
+			<include name="log.xsl"/>
+			</fileset>
+		</copy>
+		<mkdir dir="${output.dir}${file.separator}js"/>
+		<mkdir dir="${output.dir}${file.separator}css"/>
+		<mkdir dir="${output.dir}${file.separator}fonts"/>
+		<copy todir="${output.dir}${file.separator}js">
+			<fileset dir="${dita.dir}${file.separator}plugins${file.separator}org.dita-community.qa${file.separator}xsl${file.separator}js${file.separator}">
+			<include name="bootstrap.js"/>
+			<include name="bootstrap.min.js"/>
+			<include name="jquery.js"/>
+			</fileset>
+		</copy>
+		<copy todir="${output.dir}${file.separator}css">
+			<fileset dir="${dita.dir}${file.separator}plugins${file.separator}org.dita-community.qa${file.separator}xsl${file.separator}css${file.separator}">
+			<include name="qa_report.css"/>
+			<include name="popup_icon.jpg"/>
+			<include name="bootstrap.css"/>
+			<include name="bootstrap.min.css"/>
+			<include name="bootstrap-theme.css"/>
+			<include name="bootstrap-theme.min.css"/>
+			</fileset>
+		</copy>
+		<copy todir="${output.dir}${file.separator}fonts">
+			<fileset dir="${dita.dir}${file.separator}plugins${file.separator}org.dita-community.qa${file.separator}xsl${file.separator}fonts${file.separator}">
+			<include name="glyphicons-halflings-regular.eot"/>
+			<include name="glyphicons-halflings-regular.svg"/>
+			<include name="glyphicons-halflings-regular.ttf"/>
+			<include name="glyphicons-halflings-regular.woff"/>
+			</fileset>
+		</copy>
+		
+		<condition property="args.xsl" value="${dita.dir}${file.separator}plugins/org.dita-community.qa/xsl/qadata.xsl">
+			<not>
+				<isset property="args.xsl"/>
+			</not>
+		</condition>
+		<!-- build data file as dita topic -->
+		<xslt processor="trax" basedir="${dita.temp.dir}" destdir="${output.dir}" includesfile="${dita.temp.dir}${file.separator}${fullditatopicfile}" extension=".dita" style="${args.xsl}">
+		<excludesfile name="${dita.temp.dir}${file.separator}${resourceonlyfile}" if="resourceonlyfile"/>
+		<!-- these parameters are referenced in the stylesheet -->
+		<param name="input" expression="${args.input}" if="args.input"/>
+		<param name="fileroot" expression="${dita.map.filename.root}"/>
+		<param name="FILTERFILE" expression="${dita.input.valfile}" if="dita.input.valfile"/>
+		<param name="OUTPUTDIR" expression="${output.dir}" if="output.dir"/>
+		<param name="BASEDIR" expression="${basedir}"/>
+		</xslt>
+		<!-- move file to the output root -->
+		<move todir="${output.dir}" flatten="true">
+		<fileset dir="${output.dir}">
+			<include name="**/${dita.map.filename.root}.dita"/>
+		</fileset>
+		</move>
+		<xslt processor="trax" in="${output.dir}${file.separator}${dita.map.filename.root}.dita" extension=".csv" style="${dita.dir}${file.separator}plugins/org.dita-community.qa/xsl/qacsv.xsl" out="${output.dir}${file.separator}${dita.map.filename.root}-violations.csv"/>
+		<xslt processor="trax" in="${output.dir}${file.separator}${dita.map.filename.root}.dita" out="${output.dir}/report.html" extension=".html" style="${dita.dir}${file.separator}plugins/org.dita-community.qa/xsl/qareport.xsl">
+		</xslt>
+	</target>
+
+</project>

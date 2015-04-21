@@ -1,0 +1,8 @@
+<plugin id="org.dita-community.qa">
+<!-- This file is part of the org.dita-community.qa project hosted on 
+     Sourceforge.net.-->
+<!-- (c) Copyright Ditanauts All Rights Reserved. -->
+<feature extension="dita.conductor.transtype.check" value="qa" type="txt"/>
+<feature extension="depend.preprocess.chunk.pre" value="setchunk"/>
+<feature extension="dita.conductor.target.relative" value="build_qadata.xml" type="file"/>
+</plugin>

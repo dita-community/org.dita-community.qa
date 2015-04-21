@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "../../../../dtd/technicalContent/dtd/reference.dtd">
+<reference id="reference_yrm_py3_54">
+  <title>QA Checks</title>
+  <shortdesc>This file defines the checks that are run by the QA
+    plugin.</shortdesc>
+  <refbody>
+    <table frame="none" id="table_djr_31j_54">
+      <title>Definitions</title>
+      <tgroup cols="2">
+        <colspec colname="c1" colnum="1" colwidth="1.0*" />
+        <colspec colname="c2" colnum="2" colwidth="1.0*" />
+        <thead>
+          <row>
+            <entry>Element</entry>
+            <entry>Contents</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>proptype</entry>
+            <entry>Severity: Warning, Error, Info</entry>
+          </row>
+          <row>
+            <entry>propvalue</entry>
+            <entry>"codeph" for XPath, "term" for terminology </entry>
+          </row>
+          <row>
+            <entry>message</entry>
+            <entry>Message that will be written to the log when the condition is
+              met</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <properties>
+      <prophead>
+        <proptypehd>Severity</proptypehd>
+        <propvaluehd>Expression</propvaluehd>
+        <propdeschd>Message</propdeschd>
+      </prophead>
+      <property>
+        <proptype>Warning</proptype>
+        <propvalue><codeph>b</codeph></propvalue>
+        <propdesc>Do not use typographic markup b</propdesc>
+      </property>
+      <property>
+        <proptype>Error</proptype>
+        <propvalue><codeph>p[(not(text()) and not(node()))]</codeph></propvalue>
+        <propdesc>P element is empty</propdesc>
+      </property>
+    </properties>
+    <properties>
+      <property>
+        <proptype>Warning</proptype>
+        <propvalue><term>data center</term></propvalue>
+        <propdesc>data center - Use "datacenter"</propdesc>
+      </property>
+      <property>
+        <proptype>Error</proptype>
+        <propvalue><term>via</term></propvalue>
+        <propdesc>Avoid "via." Use "across," "along," "by," "from," "on,"
+          "through," or "using" instead.</propdesc>
+      </property>
+    </properties>
+  </refbody>
+</reference>
