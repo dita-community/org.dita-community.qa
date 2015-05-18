@@ -10,9 +10,9 @@
 	</condition>
 
 	<target name="setchunk" description="Set @chunk to-content on the temp input bookmap" if="if.chunk">
-		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="chunk=.to-content." value="" />	
-		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="&lt;bookmap " value="&lt;bookmap chunk='to-content' "/>
-		<replace file="${dita.temp.dir}${file.separator}${dita.input.filename}" token="&lt;map " value="&lt;map chunk='to-content' "/>
+		<replace file="${dita.temp.dir}${file.separator}${user.input.file}" token="chunk=.to-content." value="" />	
+		<replace file="${dita.temp.dir}${file.separator}${user.input.file}" token="&lt;bookmap " value="&lt;bookmap chunk='to-content' "/>
+		<replace file="${dita.temp.dir}${file.separator}${user.input.file}" token="&lt;map " value="&lt;map chunk='to-content' "/>
 	</target>
 
 	<target name="dita2qa" depends="build-init,preprocess">
