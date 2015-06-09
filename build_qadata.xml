@@ -4,6 +4,13 @@
 <!-- (c) Copyright Ditanauts All Rights Reserved. -->
 <project name="dita2qa" default="dita2qa">
 	<property name="transtype" value="qa"/>
+	
+	<target name="compilechecks">
+		<xslt in="${dita.plugin.org.dita-community.qa.dir}/tools/qacompiler/qa_checks_r.dita"
+			out="${dita.plugin.org.dita-community.qa.dir}/xsl/qachecks/_qa_checks_term.xsl"
+			style="${dita.plugin.org.dita-community.qa.dir}/tools/qacompiler/qa_compiler.xsl"
+			force="true" />
+	</target>
 
 	<condition property="if.chunk">
   		<equals arg1="${setchunk}" arg2="true" casesensitive="false" />

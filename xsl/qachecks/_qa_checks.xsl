@@ -4,6 +4,9 @@
 <!-- (c) Copyright Ditanauts All Rights Reserved. -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="xsl fo xs fn">
 
+	<!-- Uncomment to include checks compiled from tools/qacompiler/qa_checks_r.dita -->
+	<!--<xsl:import href="_qa_checks_term.xsl" />-->
+	
 <!-- =========== This stylesheet includes all QA checks. 
 								The idea is to run all checks against all document types, 
 								then filter the results within the report logic ============  -->

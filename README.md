@@ -31,5 +31,5 @@ ant -Dtranstype=qa -logger=org.apache.tools.ant.XmlLogger -logfile=out/qalog.xml
 To invoke the QA Compiler tool example (convert from DITA reference to QA check):
 
 ```
-java -jar lib/saxon/saxon9.jar -xsl:plugins/org.dita-community.qa/tools/qacompiler/qa_compiler.xsl -o:out/_qa_checks.xsl -s:plugins/org.dita-community.qa/tools/qacompiler/qa_checks_r.dita
+ant compilechecks
 ```
