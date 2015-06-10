@@ -132,6 +132,15 @@ exclude-result-prefixes="xsl xs fo fn ditaarch"
 		<xsl:for-each select="self::conbody | self::taskbody | self::refbody | self::body | self::ctxTrainingBody">
 			<!-- DRD: as this section title indicates, our variables will need to be scoped by topic, making the names unique somehow -->
 			<section id="report{generate-id()}" class="topicReport">
+				<xsl:text>Topic: </xsl:text>
+				<xref>
+					<xsl:attribute name="href">
+						<xsl:value-of
+							select="replace(replace(substring-after(@xtrf, 'C:'), '\\', '/'), ' ', '%20')"/>
+<!--						<xsl:value-of select="encode-for-uri(concat('file:///', replace(@xtrf, '\\', '/')))"/>-->
+					</xsl:attribute>
+					<xsl:value-of select="preceding-sibling::title[contains(@class, ' topic/title ')]"/>
+				</xref>
 				<data type="topicreport" name="topicTitle"><xsl:value-of select="preceding-sibling::title[contains(@class, ' topic/title ')]"/></data>
 				<data type="topicreport" name="filePath"><xsl:value-of select="@xtrf"/></data>
 				<data type="topicreport" name="wordCount"><xsl:value-of select="count(tokenize(lower-case(ancestor::*[contains(@class, ' topic/topic ')][1]),'(\s|[,.?!:;])+')[string(.)])"/></data>
