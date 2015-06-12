@@ -7,10 +7,15 @@
     shortdesc or uicontrol or varname</xsl:variable>
   <xsl:template match="/">
     <xsl:element name="xsl:stylesheet">
+      <xsl:attribute name="version">2.0</xsl:attribute>
+      <xsl:element name="xsl:variable">
+         <xsl:attribute name="name">excludes</xsl:attribute>        
+        <xsl:value-of select="$excludes"/>
+      </xsl:element>
       <xsl:element name="xsl:template">
-        <xsl:attribute name="name">qaChecks</xsl:attribute>
+        <xsl:attribute name="name">term</xsl:attribute>
         <xsl:apply-templates
-          select="descendant::*[contains(@class, ' reference/properties ')]/*[contains(@class, ' reference/property ')]"
+          select="descendant::*[contains(@class, ' reference/properties ')]/*[contains(@class, ' reference/property ')][descendant::*[contains(@class, ' reference/propvalue ')]]"
          />
       </xsl:element>
     </xsl:element>
@@ -31,15 +36,19 @@
             <!-- Assume it is a terminology check -->
             <xsl:text>descendant::*[not(</xsl:text>
             <xsl:value-of select="replace($excludes, '\s+', ' ')" />
-            <xsl:text>)]/text()[contains(.,'</xsl:text>
+            <xsl:text>)]/text()[matches(.,'</xsl:text>
             <xsl:value-of select="*[contains(@class, ' reference/propvalue ')]" />
-            <xsl:text>')]</xsl:text>
+            <xsl:text>', 'i')]</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
 
-      <xsl:element name="li">
+      <xsl:element name="data">
+        <xsl:attribute name="type">msg</xsl:attribute>
         <xsl:attribute name="class">
+          <xsl:value-of select="replace(ancestor::properties/@id, '_', ' ')"/>
+        </xsl:attribute>
+        <xsl:attribute name="importance">
           <xsl:value-of
             select="lower-case(*[contains(@class, ' reference/proptype ')])" />
         </xsl:attribute>

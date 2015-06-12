@@ -5,6 +5,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="xsl fo xs fn">
 
 	<!-- Uncomment to include checks compiled from tools/qacompiler/qa_checks_r.dita -->
+	<!-- Also remove the xsl:template/@name="term" below -->
 	<!--<xsl:import href="_qa_checks_term.xsl" />-->
 	
 <!-- =========== This stylesheet includes all QA checks. 
