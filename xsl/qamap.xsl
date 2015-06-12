@@ -18,12 +18,12 @@
       <topicmeta>
         <xsl:copy-of select="/topic/body/section[@id='overalld2']/*" copy-namespaces="no"/>
       </topicmeta>
-      <xsl:for-each
-        select="/topic/body/section[contains(@class, 'topicReport')][descendant-or-self::*[contains(@type, 'msg')]]">
+      <xsl:for-each-group
+        select="/topic/body/section[contains(@class, 'topicReport')][descendant-or-self::*[contains(@type, 'msg')]]" group-by="data[contains(@name, 'filePath')]">
         <topicref>
           <xsl:attribute name="href">
             <xsl:value-of
-              select="replace(replace(substring-after(data[contains(@name, 'filePath')][1], 'C:'), '\\', '/'), ' ', '%20')"
+              select="replace(replace(substring-after(current-grouping-key(), 'C:'), '\\', '/'), ' ', '%20')"
              />
           </xsl:attribute>
           <topicmeta>
@@ -49,7 +49,7 @@
             </xsl:for-each>
           </topicmeta>
         </topicref>
-      </xsl:for-each>
+      </xsl:for-each-group>
     </map>
   </xsl:template>
 </xsl:stylesheet>
