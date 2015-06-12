@@ -331,7 +331,7 @@
 							<h4>Violations by Severity</h4>
 							<div id="violationPie" title="Displays violations by severity. Does not include low-severity issues."/>
 								<br/>
-								<a class="violation_link" title="Contains all violations. Open in Excel and sort data into columns using | as a delimeter.">
+								<a class="violation_link" title="Contains all violations. Open in Excel and sort data into columns.">
 									<xsl:attribute name="href"><xsl:value-of select="concat($fileRoot, '-violations.csv')"/></xsl:attribute>Download Violations Spreadsheet (.csv)</a>
 						</div>
 						<div class="col-md-6">
@@ -435,7 +435,7 @@
 				<p>Download the Violations Report to see a full list of each error. To vew the report:</p>
 				<ol>
 					<li>Open the <xsl:value-of select="$fileRoot"/>.csv file in Excel.</li>
-					<li>Click a topic title link to view the source.</li>
+					<li>Format the data as a table.</li>
 				</ol>
 				<p>You can then filter by Flag, Type, or Severity; sort by topic; or search for specific issues. Columns have also been provided for "Assigned To" and "Action Taken."</p>
 				<h3>Reading Time</h3>
