@@ -51,7 +51,7 @@
 			<xsl:value-of select="sum($totalUrgent + $totalOptional + $totalRecommended)"/>
 		</xsl:variable>
 		<xsl:variable name="passiveVoice">
-			<xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@class, 'lang passive')])"/>		
+			<xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@outputclass, 'lang passive')])"/>		
 		</xsl:variable>
 		
 		<!-- Collect topic-level info -->
@@ -71,10 +71,10 @@
 			<xsl:value-of select="$thisDoc//data[@name = 'imagesTotal']"/>
 		</xsl:variable>
 		<xsl:variable name="linkTotal">
-			<xsl:value-of select="count($thisDoc//data[contains(@class, 'link')])"/>
+			<xsl:value-of select="count($thisDoc//data[contains(@outputclass, 'link')])"/>
 		</xsl:variable>
 		<xsl:variable name="totalComplexity">
-			<xsl:value-of select="sum(//data[contains(@class, 'step-count')])"/>
+			<xsl:value-of select="sum(//data[contains(@outputclass, 'step-count')])"/>
 		</xsl:variable>
 		<xsl:variable name="readingTime">
 			<xsl:value-of select="$thisDoc//data[@name = 'totalWords'] div 150 div 60"/>
@@ -147,11 +147,11 @@
 			  function drawChart() {
 				var data = google.visualization.arrayToDataTable([
 					  ['Type', 'Number of Flags'],
-					  ['XD7 Terms' , <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@class, 'term xd7')])"/>],
-					  ['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@class, 'term mmstp')])"/>],
-					  ['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@class, 'tag')])"/>],
-					  ['Edu Terms', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@class, 'term edu')])"/>],
-					  ['Language', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@class, 'lang general')])"/>]
+					  ['XD7 Terms' , <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@outputclass, 'term xd7')])"/>],
+			['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@outputclass, 'term mmstp')])"/>],
+			['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@outputclass, 'tag')])"/>],
+			['Edu Terms', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@outputclass, 'term edu')])"/>],
+			['Language', <xsl:value-of select="count(//data[contains(@importance, 'urgent')][contains(@outputclass, 'lang general')])"/>]
 					]);
 
       var options = {
@@ -174,10 +174,10 @@
 			  function drawChart() {
 				var data = google.visualization.arrayToDataTable([
 					  ['Type', 'Number of Flags'],
-					  ['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@class, 'term mmstp')])"/>],
-					  ['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@class, 'tag')])"/>],
-					  ['Edu Terms', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@class, 'term edu')])"/>],
-					  ['Language', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@class, 'lang general')])"/>],
+					  ['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@outputclass, 'term mmstp')])"/>],
+			['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@outputclass, 'tag')])"/>],
+			['Edu Terms', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@outputclass, 'term edu')])"/>],
+			['Language', <xsl:value-of select="count(//data[contains(@importance, 'recommended')][contains(@outputclass, 'lang general')])"/>],
 					  ['Passive Voice', <xsl:value-of select="$passiveVoice"/>]
 					]);
 
@@ -201,9 +201,9 @@
 			  function drawChart() {
 				var data = google.visualization.arrayToDataTable([
 					  ['Type', 'Number of Flags'],
-					  ['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@class, 'term mmstp')])"/>],
-					  ['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@class, 'tag')])"/>],
-					  ['Language', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@class, 'lang')])"/>]			  
+					  ['MMSTP', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@outputclass, 'term mmstp')])"/>],
+			['Tagging', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@outputclass, 'tag')])"/>],
+			['Language', <xsl:value-of select="count(//data[contains(@importance, 'optional')][contains(@outputclass, 'lang')])"/>]			  
 					]);
 
       var options = {
@@ -415,7 +415,7 @@
 					<div class="col-md-5 info">
 						<div class="infocontent">
 							<ul>
-								<xsl:for-each select="distinct-values(descendant-or-self::*[contains(@class, 'link')])">
+								<xsl:for-each select="distinct-values(descendant-or-self::*[contains(@outputclass, 'link')])">
 									<li>
 										<a target="_blank">
 											<xsl:attribute name="href"><xsl:value-of select="."/></xsl:attribute>

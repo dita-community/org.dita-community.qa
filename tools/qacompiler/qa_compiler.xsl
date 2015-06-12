@@ -45,7 +45,7 @@
 
       <xsl:element name="data">
         <xsl:attribute name="type">msg</xsl:attribute>
-        <xsl:attribute name="class">
+        <xsl:attribute name="ouputclass">
           <xsl:value-of select="replace(ancestor::properties/@id, '_', ' ')"/>
         </xsl:attribute>
         <xsl:attribute name="importance">
