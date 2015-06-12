@@ -18,17 +18,17 @@
       <topicmeta>
         <xsl:copy-of select="/topic/body/section[@id='overalld2']/*" copy-namespaces="no"/>
       </topicmeta>
-      <xsl:for-each
-        select="/topic/body/section[contains(@class, 'topicReport')][descendant-or-self::*[contains(@type, 'msg')]]">
+      <xsl:for-each-group
+        select="/topic/body/section[contains(@outputclass, 'topicReport')][descendant-or-self::*[contains(@type, 'msg')]]" group-by="data[contains(@name, 'filePath')]">
         <topicref>
           <xsl:attribute name="href">
             <xsl:value-of
-              select="replace(replace(substring-after(data[contains(@name, 'filePath')][1], 'C:'), '\\', '/'), ' ', '%20')"
+              select="replace(replace(substring-after(current-grouping-key(), 'C:'), '\\', '/'), ' ', '%20')"
              />
           </xsl:attribute>
           <topicmeta>
             <xsl:for-each
-              select="data/descendant-or-self::*[contains(@type, 'msg')][not(contains(@class, 'step'))][not(contains(@class, 'xrefs'))]">
+              select="data/descendant-or-self::*[contains(@type, 'msg')][not(contains(@outputclass, 'step'))][not(contains(@outputclass, 'xrefs'))]">
               <category>
                 <keyword>QA violation:</keyword>
                 <xsl:text> </xsl:text>
@@ -42,14 +42,14 @@
                 <data>
                   <xsl:attribute name="name">type</xsl:attribute>
                   <xsl:attribute name="value">
-                    <xsl:value-of select="@class" />
+                    <xsl:value-of select="@outputclass" />
                   </xsl:attribute>
                 </data>
               </category>
             </xsl:for-each>
           </topicmeta>
         </topicref>
-      </xsl:for-each>
+      </xsl:for-each-group>
     </map>
   </xsl:template>
 </xsl:stylesheet>

@@ -19,21 +19,25 @@
         <tbody>
           <row>
             <entry>proptype</entry>
-            <entry>Severity: Warning, Error, Info</entry>
+            <entry>Severity: recommended, urgent, optional</entry>
           </row>
           <row>
             <entry>propvalue</entry>
-            <entry>"codeph" for XPath, "term" for terminology </entry>
+            <entry>Expression: <codeph>codeph</codeph> for XPath,
+                <codeph>term</codeph> for terminology <note type="important"
+                >Terminology is a regular expression match, so escape special
+                characters (such as <codeph>. ( ) \ "</codeph> with a backslash
+                  <codeph> \ </codeph>.</note></entry>
           </row>
           <row>
-            <entry>message</entry>
+            <entry>propdesc</entry>
             <entry>Message that will be written to the log when the condition is
               met</entry>
           </row>
         </tbody>
       </tgroup>
     </table>
-    <properties>
+    <properties id="markup">
       <prophead>
         <proptypehd>Severity</proptypehd>
         <propvaluehd>Expression</propvaluehd>
@@ -50,7 +54,7 @@
         <propdesc>P element is empty</propdesc>
       </property>
     </properties>
-    <properties>
+    <properties id="term_mmstp">
       <property>
         <proptype>Warning</proptype>
         <propvalue><term>data center</term></propvalue>

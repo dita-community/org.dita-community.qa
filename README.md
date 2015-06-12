@@ -7,29 +7,42 @@ This DITA Open Toolkit plugin identifies errors in DITA tagging, element nesting
 [Ditanauts](www.ditanauts.org)
 
 
-## Release Notes
+## Features
 
-- Set 'to-content' chunk attribute automatically on bookmap and map elements
- - chunk attribute is set only if -Dsetchunk=true at command line
-- Updated HTML report style using Bootstrap
-- Chart data modified to use Google charts
-- Included transform tool to enable authoring of QA checks as DITA reference  
-- General plug-in enhancements:
- - Generates CSV file containing all errors
- - Generates data file containing all errors
+- Reports:
+ - HTML report with summaries and graphs using Bootstrap and Google Charts (_mapname_-report.html)
+ - DITA map containing references to all topics with errors and a list of the errors per topic (_mapname_-violations.ditamap)
+ - CSV file containing all errors (_mapname_-violations.csv)
+ - Data file containing all errors that you can use to create your own reports (_mapname_.dita)
+- Set `@chunk=to-content` automatically on bookmap and map element when `-Dsetchunk=true` is specified on command line
+- QA checks compiler transform tool to enable authoring of QA checks as DITA reference topic
 
 ## Usage
 
 To run the standard test transform:
 
+OT 1.x
 ```
-ant -Dtranstype=qa -logger=org.apache.tools.ant.XmlLogger -logfile=out/qalog.xml -Douter.control=quiet -Dsetchunk=true -Dargs.input=samples/taskbook.ditamap
+ant -Dtranstype=qa -Douter.control=quiet -Dsetchunk=true -Dargs.input=samples/taskbook.ditamap [-logger=org.apache.tools.ant.XmlLogger -logfile=out/qalog.xml]
 ```
 
-## Additional Tools
+OT 2.x
+```
+dita -f qa -i samples/taskbook.ditamap -Dsetchunk=true
+```
 
-To invoke the QA Compiler tool example (convert from DITA reference to QA check):
+## QA Checks Compiler
+
+To convert checks from DITA reference `tools/qacompiler/qa_checks_r.dita` to QA check:
 
 ```
 ant compilechecks
 ```
+
+To use the checks, in `xsl/_qa_checks.xsl` uncomment the `xsl:include` line for `_qa_checks_term.xsl` and remove the `term` template.
+
+To convert checks written as `xsl:if` statements apply the `tools/qacompiler/qa_decompiler.xsl` transform on `xsl/_qa_checks.xsl`.
+
+## Troubleshooting
+
+If the data file (_mapname_.dita) is not generated, ensure you specified `-Dsetchunk=true` in the build command or set `@chunk=to-content` on the root element of the map.
