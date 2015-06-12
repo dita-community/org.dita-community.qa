@@ -226,7 +226,7 @@
 				  function drawChart() {
 					var data = google.visualization.arrayToDataTable([
 				  ['Topic #', 'Words'],
-<xsl:for-each select="/topic/body/section[contains(@class, 'topicReport')]">['<xsl:value-of select="position()"/>', <xsl:value-of select="data[contains(@name, 'wordCount')]"/>]<xsl:if test="position() &lt; last()">,</xsl:if>
+<xsl:for-each select="/topic/body/section[contains(@outputclass, 'topicReport')]">['<xsl:value-of select="position()"/>', <xsl:value-of select="data[contains(@name, 'wordCount')]"/>]<xsl:if test="position() &lt; last()">,</xsl:if>
 			</xsl:for-each>
         ]);
 
@@ -435,11 +435,7 @@
 				<p>Download the Violations Report to see a full list of each error. To vew the report:</p>
 				<ol>
 					<li>Open the <xsl:value-of select="$fileRoot"/>.csv file in Excel.</li>
-					<li>Highlight column A.</li>
-					<li>Click <b>Text to Columns</b> in the Data ribbon.</li>
-					<li>Select <b>Delimited</b> and click <b>Next</b>.</li>
-					<li>Deselect <b>Tab</b>, select <b>Other</b>, and type the | symbol in the field.</li>
-					<li>Click <b>Finish</b>.</li>
+					<li>Click a topic title link to view the source.</li>
 				</ol>
 				<p>You can then filter by Flag, Type, or Severity; sort by topic; or search for specific issues. Columns have also been provided for "Assigned To" and "Action Taken."</p>
 				<h3>Reading Time</h3>
