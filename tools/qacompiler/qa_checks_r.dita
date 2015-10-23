@@ -37,6 +37,18 @@
         </tbody>
       </tgroup>
     </table>
+    <section>
+      <title>Exclusions</title>
+      <sl id="excludes">
+        <sli>codeblock</sli>
+        <sli>cmdname</sli>
+        <sli>draft-comment</sli>
+        <sli>filepath</sli>
+        <sli>msgblock </sli>
+        <sli>uicontrol</sli>
+        <sli>varname</sli>
+      </sl>
+    </section>
     <properties id="markup">
       <prophead>
         <proptypehd>Severity</proptypehd>
