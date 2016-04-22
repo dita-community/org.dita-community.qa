@@ -85,6 +85,7 @@
 				if="dita.input.valfile" />
 			<param name="OUTPUTDIR" expression="${output.dir}" if="output.dir" />
 			<param name="BASEDIR" expression="${basedir}" />
+			<param name="tempInput" expression="${dita.temp.dir}${file.separator}${user.input.file}" />
 		</xslt>
 		<!-- move file to the output root -->
 		<move todir="${output.dir}" flatten="true">
@@ -92,6 +93,39 @@
 				<include name="**/${dita.map.filename.root}.dita" />
 			</fileset>
 		</move>
+		
+		<java classname="net.sf.saxon.Transform" fork="yes">
+			<arg value="-r:org.apache.xml.resolver.tools.CatalogResolver"/>
+			<arg value="-x:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<arg value="-y:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
+			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qacsv.xsl"/>
+			<arg value="-t"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-violations.csv"/>
+		</java>
+		<java classname="net.sf.saxon.Transform" fork="yes">
+			<arg value="-r:org.apache.xml.resolver.tools.CatalogResolver"/>
+			<arg value="-x:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<arg value="-y:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
+			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qamap.xsl"/>
+			<arg value="-t"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-violations.ditamap"/>
+		</java>
+		<java classname="net.sf.saxon.Transform" fork="yes">
+			<arg value="-r:org.apache.xml.resolver.tools.CatalogResolver"/>
+			<arg value="-x:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<arg value="-y:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
+			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
+			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qareport.xsl"/>
+			<arg value="-t"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-report.html"/>
+		</java>
+
+		<!-- Legacy XSLT tasks. Replaced with java calls
 		<xslt processor="trax"
 			in="${output.dir}/${dita.map.filename.root}.dita"
 			extension=".csv"
@@ -106,7 +140,7 @@
 			in="${output.dir}/${dita.map.filename.root}.dita"
 			extension=".html"
 			style="${dita.plugin.org.dita-community.qa.dir}/xsl/qareport.xsl"
-			out="${output.dir}/${dita.map.filename.root}-report.html" />
+			out="${output.dir}/${dita.map.filename.root}-report.html" /> -->
 	</target>
 
 </project>

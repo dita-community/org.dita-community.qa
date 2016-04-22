@@ -17,6 +17,7 @@ exclude-result-prefixes="xsl xs fo fn ditaarch"
 	<xsl:param name="OUTPUTDIR" />
 	<xsl:param name="FILTERFILE" />
 	<xsl:param name="BASEDIR" />
+	<xsl:param name="tempInput"/>
 	<xsl:include href="qachecks/_qa_checks.xsl"/>
 
 	<!-- for 1.x OT versions, use doctype-system="../dtd/technicalContent/dtd/topic.dtd" -->
@@ -58,7 +59,9 @@ exclude-result-prefixes="xsl xs fo fn ditaarch"
 	    <xsl:variable name="inputMap">
 			<xsl:value-of select="concat('file:///' ,$input)"/>
 	    </xsl:variable>
-		
+		<xsl:variable name="tempMap">
+			<xsl:value-of select="concat('file:///',$tempInput)"/>
+		</xsl:variable>
 		
 		<!-- start building the XML database module here -->
 		<topic id="qadata{generate-id}">
@@ -67,14 +70,14 @@ exclude-result-prefixes="xsl xs fo fn ditaarch"
 	    	<section id="overall{generate-id()}" outputclass="overallData">
 	    		<data type="docdata" name="docTitle">
 	    			<xsl:choose>
-	    				<xsl:when test='document($inputMap)//mainbooktitle'>
+	    				<xsl:when test='document($tempMap)//mainbooktitle'>
 	    					<!-- trying to get the bookmap title, but the document function works relative to this xsl file, 
 	    					not to build.xml, so the input variable doesn't point to an actual document -->
-		    				<xsl:value-of select="document($inputMap)//mainbooktitle"/>
+		    				<xsl:value-of select="document($tempMap)//mainbooktitle"/>
 	    				</xsl:when>
 	    				<xsl:otherwise>
 	    					<!-- DRD: so we'll provide a fallback -->
-		    				<xsl:value-of select="document($inputMap)/*/title"/>
+		    				<xsl:value-of select="document($tempMap)/*/title"/>
 	    				</xsl:otherwise>
 	    			</xsl:choose>
 	    		</data>
