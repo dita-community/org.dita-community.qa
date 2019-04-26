@@ -21,12 +21,13 @@ exclude-result-prefixes="xsl xs fo fn ditaarch"
 	<xsl:include href="qachecks/_qa_checks.xsl"/>
 
 	<!-- for 1.x OT versions, use doctype-system="../dtd/technicalContent/dtd/topic.dtd" -->
-	<xsl:output 
+	<!--<xsl:output 
 		method="xml" 
 		indent="yes" 
 		doctype-public="-//OASIS//DTD DITA Topic//EN"
 		doctype-system="../plugins/org.oasis-open.dita.v1_2/dtd/technicalContent/dtd/topic.dtd"
-	/>
+	/>-->
+	<xsl:output indent="yes" method="xml" />
 	
 	<xsl:key name="tagErrors" match="data" use="@importance" />
 
