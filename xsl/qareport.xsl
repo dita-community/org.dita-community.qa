@@ -462,7 +462,7 @@
 								<a href="qalog.xml" target="_blank">View Build Log</a>
 								<br/>
 								<a target="_blank">
-									<xsl:attribute name="href"><xsl:value-of select="concat($fileRoot, '.dita')"/></xsl:attribute>View Data File</a>
+									<xsl:attribute name="href"><xsl:value-of select="concat($fileRoot, '.data')"/></xsl:attribute>View Data File</a>
 							</td>
 						</tr>
 						<tr>

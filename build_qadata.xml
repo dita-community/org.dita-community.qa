@@ -30,7 +30,7 @@
 	<target name="dita2qa" depends="build-init,preprocess">
 		<copy todir="${output.dir}">
 			<fileset
-				dir="${dita.dir}/plugins/org.dita-community.qa/xsl/">
+				dir="${dita.plugin.org.dita-community.qa.dir}/xsl/">
 				<include name="log.xsl" />
 			</fileset>
 		</copy>
@@ -39,7 +39,7 @@
 		<mkdir dir="${output.dir}/fonts" />
 		<copy todir="${output.dir}/js">
 			<fileset
-				dir="${dita.dir}/plugins/org.dita-community.qa/xsl/js/">
+				dir="${dita.plugin.org.dita-community.qa.dir}/xsl/js/">
 				<include name="bootstrap.js" />
 				<include name="bootstrap.min.js" />
 				<include name="jquery.js" />
@@ -47,7 +47,7 @@
 		</copy>
 		<copy todir="${output.dir}/css">
 			<fileset
-				dir="${dita.dir}/plugins/org.dita-community.qa/xsl/css/">
+				dir="${dita.plugin.org.dita-community.qa.dir}/xsl/css/">
 				<include name="qa_report.css" />
 				<include name="popup_icon.jpg" />
 				<include name="bootstrap.css" />
@@ -67,15 +67,15 @@
 		</copy>
 
 		<condition property="args.xsl"
-			value="${dita.dir}/plugins/org.dita-community.qa/xsl/qadata.xsl">
+			value="${dita.plugin.org.dita-community.qa.dir}/xsl/qadata.xsl">
 			<not>
 				<isset property="args.xsl" />
 			</not>
 		</condition>
 		<!-- build data file as dita topic -->
-		<xslt processor="trax" basedir="${dita.temp.dir}" destdir="${output.dir}"
+		<xslt processor="trax" basedir="${dita.temp.dir}" destdir="${dita.temp.dir}"
 			includesfile="${dita.temp.dir}/${fullditatopicfile}"
-			extension=".dita" style="${args.xsl}">
+			extension=".data" style="${args.xsl}">
 			<excludesfile name="${dita.temp.dir}/${resourceonlyfile}"
 				if="resourceonlyfile" />
 			<!-- these parameters are referenced in the stylesheet -->
@@ -89,19 +89,20 @@
 		</xslt>
 		<!-- move file to the output root -->
 		<move todir="${output.dir}" flatten="true">
-			<fileset dir="${output.dir}">
-				<include name="**/${dita.map.filename.root}.dita" />
+			<fileset dir="${dita.temp.dir}">
+				<include name="**/${dita.map.filename.root}.data" />
 			</fileset>
 		</move>
 		
-		<java classname="net.sf.saxon.Transform" fork="yes">
+		<!-- Java calls to perform same function as XSLT calls -->
+		<!--<java classname="net.sf.saxon.Transform" fork="yes">
 			<arg value="-r:org.apache.xml.resolver.tools.CatalogResolver"/>
 			<arg value="-x:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
 			<arg value="-y:org.apache.xml.resolver.tools.ResolvingXMLReader"/>
 			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
 			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qacsv.xsl"/>
 			<arg value="-t"/>
-			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.data"/>
 			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-violations.csv"/>
 		</java>
 		<java classname="net.sf.saxon.Transform" fork="yes">
@@ -111,7 +112,7 @@
 			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
 			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qamap.xsl"/>
 			<arg value="-t"/>
-			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.data"/>
 			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-violations.ditamap"/>
 		</java>
 		<java classname="net.sf.saxon.Transform" fork="yes">
@@ -121,11 +122,11 @@
 			<jvmarg value="-Dxml.catalog.files=catalog-dita.xml"/>	
 			<arg value="-xsl:${dita.plugin.org.dita-community.qa.dir}${file.separator}xsl${file.separator}qareport.xsl"/>
 			<arg value="-t"/>
-			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.dita"/>
+			<arg value="-s:${output.dir}${file.separator}${dita.map.filename.root}.data"/>
 			<arg value="-o:${output.dir}${file.separator}${dita.map.filename.root}-report.html"/>
-		</java>
+		</java>-->
 
-		<!-- Legacy XSLT tasks. Replaced with java calls
+		<!-- Legacy XSLT tasks. Can be interchanged with java calls -->
 		<xslt processor="trax"
 			in="${output.dir}/${dita.map.filename.root}.dita"
 			extension=".csv"
@@ -140,7 +141,7 @@
 			in="${output.dir}/${dita.map.filename.root}.dita"
 			extension=".html"
 			style="${dita.plugin.org.dita-community.qa.dir}/xsl/qareport.xsl"
-			out="${output.dir}/${dita.map.filename.root}-report.html" /> -->
+			out="${output.dir}/${dita.map.filename.root}-report.html" /> 
 	</target>
 
 </project>
