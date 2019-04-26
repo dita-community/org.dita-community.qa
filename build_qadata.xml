@@ -128,20 +128,20 @@
 
 		<!-- Legacy XSLT tasks. Can be interchanged with java calls -->
 		<xslt processor="trax"
-			in="${output.dir}/${dita.map.filename.root}.dita"
+			in="${output.dir}/${dita.map.filename.root}.data"
 			extension=".csv"
 			style="${dita.plugin.org.dita-community.qa.dir}/xsl/qacsv.xsl"
-			out="${output.dir}/${dita.map.filename.root}-violations.csv" />
+			out="${output.dir}/${dita.map.filename.root}-violations.csv" ><xmlcatalog refid="dita.catalog"/></xslt>
 		<xslt processor="trax"
-			in="${output.dir}/${dita.map.filename.root}.dita"
+			in="${output.dir}/${dita.map.filename.root}.data"
 			extension=".ditamap"
 			style="${dita.plugin.org.dita-community.qa.dir}/xsl/qamap.xsl"
-			out="${output.dir}/${dita.map.filename.root}-violations.ditamap" />
+			out="${output.dir}/${dita.map.filename.root}-violations.ditamap" ><xmlcatalog refid="dita.catalog"/></xslt>
 		<xslt processor="trax"
-			in="${output.dir}/${dita.map.filename.root}.dita"
+			in="${output.dir}/${dita.map.filename.root}.data"
 			extension=".html"
 			style="${dita.plugin.org.dita-community.qa.dir}/xsl/qareport.xsl"
-			out="${output.dir}/${dita.map.filename.root}-report.html" /> 
+			out="${output.dir}/${dita.map.filename.root}-report.html" ><xmlcatalog refid="dita.catalog"/></xslt>  
 	</target>
 
 </project>
