@@ -4,9 +4,6 @@
 
 This DITA Open Toolkit plugin identifies errors in DITA tagging, element nesting, language standards, and common syntax errors, many of which are based on the Microsoft Manual of Style for Technical Publications. A quality assurance report is created as a single HTML file containing links to each project topic file and a stylized DITA Open Toolkit build log. Quality assurance checks are highly customizable to fit project needs.
 
-[Ditanauts](http://ditanauts.org)
-
-
 ## Features
 
 - Reports:
